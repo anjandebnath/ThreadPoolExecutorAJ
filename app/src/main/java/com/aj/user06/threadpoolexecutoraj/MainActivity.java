@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.aj.user06.executor_framework.BasicThreadPool;
+
 import java.lang.ref.WeakReference;
 
 public class MainActivity extends AppCompatActivity implements UiThreadCallback{
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements UiThreadCallback{
         setContentView(R.layout.activity_main);
 
         mDisplayTextView = (TextView)findViewById(R.id.display);
+
+        //new BasicThreadPool().initializeCallable();
     }
 
     @Override
