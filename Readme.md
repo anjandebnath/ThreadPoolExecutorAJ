@@ -45,3 +45,8 @@ Task producer submits tasks to task queue.
                                                     KEEP_ALIVE_TIME_UNIT,
                                                     mTaskQueue,
                                                     new BackgroundThreadFactory());
+                                                    
+
+### Diagram
+
+![image](https://github.com/anjandebnath/ThreadPoolExecutorAJ/blob/master/img/TPE.PNG)
