@@ -4,4 +4,5 @@
     <string name="msg_4_thread_pool">Send 8 tasks to Thread Pool</string>
     <string name="clearDisplay">Clear Messages</string>
     <string name="msg_7_thread_pool">Stop all threads in thread pool</string>
+    <string name="msg_file_upload">Start 4 file upload task </string>
 </resources>
