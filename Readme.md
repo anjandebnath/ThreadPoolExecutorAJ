@@ -50,3 +50,13 @@ Task producer submits tasks to task queue.
 ### Diagram
 
 ![image](https://github.com/anjandebnath/ThreadPoolExecutorAJ/blob/master/img/TPE.PNG)
+
+
+### Output
+![image](https://github.com/anjandebnath/ThreadPoolExecutorAJ/blob/master/img/output.png)
+
+- package (uploader)
+
+Here it is a demo file upload task. Actually we don't upload any file but create an environment that will upload 4 file parallely.
+
+Using ThreadPool Manager, RxJava, Callable and Future to make a complete package.
