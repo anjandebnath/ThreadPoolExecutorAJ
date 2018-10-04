@@ -17,13 +17,32 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/upload"
-            android:text="@string/msg_file_upload" />
+            android:id="@+id/upload1"
+            android:text="@string/msg_file_upload1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/upload2"
+            android:text="@string/msg_file_upload2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/upload3"
+            android:text="@string/msg_file_upload3" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/upload4"
+            android:text="@string/msg_file_upload4" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/display"
             android:freezesText="true"/>
+
     </LinearLayout>
 </ScrollView>

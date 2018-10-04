@@ -1,19 +1,26 @@
 package com.aj.user06.uploader;
 
+import android.os.Bundle;
 import android.os.Message;
 import android.os.Process;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.aj.user06.threadpoolexecutoraj.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 
 /**
  * Created by Anjan Debnath on 10/1/2018.
@@ -33,6 +40,7 @@ public class FileUploadManager {
     private final ExecutorService mExecutorService;
 
     private final BlockingQueue<Runnable> mTaskQueue;
+
 
     // The class is used as a singleton
     static {
@@ -80,8 +88,30 @@ public class FileUploadManager {
     }
 
     // Add a callable to the queue, which will be executed by the next available thread in the pool
-    public void addFileUploadTask(FileUploaderTask fileUploaderTask){
-        Future future = mExecutorService.submit(fileUploaderTask);
+    public Flowable<Message> addFileUploadTask(FileUploaderTask fileUploaderTask){
+
+        Future<Message> future = mExecutorService.submit(fileUploaderTask);
+
+        try {
+            Message message = future.get();
+
+            /*Flowable<Message> messageFlowable = Flowable.create(subscriber -> {
+                while (!subscriber.isCancelled()) {
+                    subscriber.onNext(message);
+                }
+            }, BackpressureStrategy.DROP);*/
+
+
+            return Flowable.fromCallable(() -> message);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+      return null;
     }
+
 
 }

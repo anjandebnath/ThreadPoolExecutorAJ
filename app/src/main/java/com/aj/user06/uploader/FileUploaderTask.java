@@ -16,9 +16,11 @@ import io.reactivex.Flowable;
 public class FileUploaderTask implements Callable {
 
     private int fileNumber;
+
     private Message message;
 
     public FileUploaderTask(){
+
     }
 
     public void setFileNumber(int fileNum){
@@ -28,14 +30,14 @@ public class FileUploaderTask implements Callable {
     @Override
     public Object call() throws Exception {
 
-        fileUploadDemoTask();
-
-        return null;
+        return fileUploadTask();
     }
 
-    private Message fileUploadDemoTask(){
+
+    public Message fileUploadTask(){
 
         try {
+
             // check if thread is interrupted before lengthy operation
             if (Thread.interrupted()) throw new InterruptedException();
 
@@ -47,14 +49,15 @@ public class FileUploaderTask implements Callable {
             message = Util.createMessage(Util.MESSAGE_ID, "File Upload " +
                     fileNumber + " completed");
 
-            Log.e("AJ::", "M:"+message.getData());
-
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         return message;
+
     }
+
+
 
 }
