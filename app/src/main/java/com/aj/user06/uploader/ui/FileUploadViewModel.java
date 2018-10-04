@@ -29,10 +29,16 @@ public class FileUploadViewModel extends ViewModel {
     }
 
 
-    public void initializeFileUpload(int number){
+    /**
+     * initialize file upload task
+     * each file upload task will be initialized on button click
+     * @param number
+     */
+    public void initializeFileUpload(int number, long timeMilli){
 
         FileUploaderTask fileUploaderTask = new FileUploaderTask();
         fileUploaderTask.setFileNumber(number);
+        fileUploaderTask.setTimeMilliSec(timeMilli);
 
         fileUploadManager.addFileUploadTask(fileUploaderTask)
                 .subscribeOn(Schedulers.io())
@@ -42,19 +48,33 @@ public class FileUploadViewModel extends ViewModel {
     }
 
 
-
+    /**
+     * to update the view we use Live data
+     * @return
+     */
     public MutableLiveData<Message> getFileUploadStatus() {
         return fileUploadStatus;
     }
 
-
+    /**
+     * Rx subscriber method
+     * @param message
+     */
     public void status(Message message){
         //Log.e("AJ::", "M:"+message.getData());
         fileUploadStatus.setValue(message);
     }
 
+    /**
+     * Rx error code handler for subscriber
+     * @param e
+     */
     public void errorCode(Throwable e){
         Log.d("AddTask", "e"+ e.toString());
+    }
+
+    public void shutDownManager(){
+        fileUploadManager.shutdownFileManager();
     }
 
 }

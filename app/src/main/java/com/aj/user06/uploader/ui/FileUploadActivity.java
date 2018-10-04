@@ -21,10 +21,6 @@ import com.aj.user06.uploader.FileUploadManager;
 public class FileUploadActivity extends AppCompatActivity {
 
     private TextView mDisplayTextView;
-    private Button uploadButton1;
-    private Button uploadButton2;
-    private Button uploadButton3;
-    private Button uploadButton4;
     private FileUploadViewModel fileUploadViewModel;
 
 
@@ -40,10 +36,11 @@ public class FileUploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_file_upload);
 
         mDisplayTextView = (TextView)findViewById(R.id.display);
-        uploadButton1 = findViewById(R.id.upload1);
-        uploadButton2 = findViewById(R.id.upload2);
-        uploadButton3 = findViewById(R.id.upload3);
-        uploadButton4 = findViewById(R.id.upload4);
+
+        Button uploadButton1 = findViewById(R.id.upload1);
+        Button uploadButton2 = findViewById(R.id.upload2);
+        Button uploadButton3 = findViewById(R.id.upload3);
+        Button uploadButton4 = findViewById(R.id.upload4);
 
         mDisplayTextView.setText("Result::\n");
         //Create view model if constructor is empty
@@ -55,26 +52,30 @@ public class FileUploadActivity extends AppCompatActivity {
         FileUploadFactory factory =
                 new FileUploadFactory(FileUploadManager.getsInstance());
 
+
+        //Create ViewModel
         fileUploadViewModel = ViewModelProviders.of(this, factory).get(FileUploadViewModel.class);
 
         uploadButton1.setOnClickListener(
-                v -> fileUploadViewModel.initializeFileUpload(1));
+                v -> fileUploadViewModel.initializeFileUpload(1, 9000));
                 //fileUploadViewModel.initializeFileUploadWithRX());
 
         uploadButton2.setOnClickListener(
-                v -> fileUploadViewModel.initializeFileUpload(2));
+                v -> fileUploadViewModel.initializeFileUpload(2, 5000));
 
         uploadButton3.setOnClickListener(
-                v -> fileUploadViewModel.initializeFileUpload(3));
+                v -> fileUploadViewModel.initializeFileUpload(3, 2000));
 
         uploadButton4.setOnClickListener(
-                v -> fileUploadViewModel.initializeFileUpload(4));
+                v -> fileUploadViewModel.initializeFileUpload(4, 7000));
 
+
+        // Mutable LiveData subscriber to get the latest data that will be used to update the UI
         fileUploadViewModel.getFileUploadStatus().observe(this, new Observer<Message>() {
             @Override
             public void onChanged(@Nullable Message message) {
 
-                //Log.e("AJ::", "M:"+message.getData());
+                Log.e("AJ::", "M:"+message.getData());
 
                 if (message != null) {
                     mDisplayTextView.append(message.getData()+"\n");
@@ -85,4 +86,9 @@ public class FileUploadActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        fileUploadViewModel.shutDownManager();
+    }
 }

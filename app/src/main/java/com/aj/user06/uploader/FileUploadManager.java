@@ -37,7 +37,7 @@ public class FileUploadManager {
 
 
     //an interface which extends Executor interface. It is used to manage threads in the threads pool.
-    private final ExecutorService mExecutorService;
+    private ExecutorService mExecutorService;
 
     private final BlockingQueue<Runnable> mTaskQueue;
 
@@ -111,6 +111,11 @@ public class FileUploadManager {
         }
 
       return null;
+    }
+
+
+    public void shutdownFileManager(){
+        mExecutorService.shutdown();
     }
 
 

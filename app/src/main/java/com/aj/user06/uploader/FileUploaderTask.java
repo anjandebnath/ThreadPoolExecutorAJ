@@ -16,7 +16,7 @@ import io.reactivex.Flowable;
 public class FileUploaderTask implements Callable {
 
     private int fileNumber;
-
+    private long timeMilliSec;
     private Message message;
 
     public FileUploaderTask(){
@@ -25,6 +25,10 @@ public class FileUploaderTask implements Callable {
 
     public void setFileNumber(int fileNum){
         this.fileNumber = fileNum;
+    }
+
+    public void setTimeMilliSec(long timeMilliSec) {
+        this.timeMilliSec = timeMilliSec;
     }
 
     @Override
@@ -43,7 +47,7 @@ public class FileUploaderTask implements Callable {
 
             // In real world project, you might do some blocking IO operation
             // In this example, I just let the thread sleep for 3 second
-            Thread.sleep(3000);
+            Thread.sleep(timeMilliSec);
 
             // After work is finished, send a message to CustomThreadPoolManager
             message = Util.createMessage(Util.MESSAGE_ID, "File Upload " +
